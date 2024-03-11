@@ -8,12 +8,7 @@ public class HomeController {
 
     @RequestMapping(value = {"","/","home"})
     public String displayHomePage(){
-String name="Nasir";
+            return "home.html";
 
-        if(name.equalsIgnoreCase("Nasir")) {
-            return "home.html";
-        }else {
-            return "home.html";
-        }
     }
 }
