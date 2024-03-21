@@ -19,9 +19,21 @@ public class ProjectSecurityConfig{
 //    return http.build();
 
 //        Configure denyAll  using Spring Security
-                http.authorizeHttpRequests(requests -> requests.anyRequest().denyAll())
-                .formLogin( Customizer.withDefaults())
+//                http.authorizeHttpRequests(requests -> requests.anyRequest().denyAll())
+//                .formLogin( Customizer.withDefaults())
+//                .httpBasic(Customizer.withDefaults());
+//    return http.build();
+
+        http.csrf((csrf) -> csrf.disable())
+                .authorizeHttpRequests((requests) -> requests.requestMatchers("/", "/home").permitAll()
+                        .requestMatchers("/holidays/**").permitAll()
+                        .requestMatchers("/contact").permitAll()
+                        .requestMatchers("/saveMsg").permitAll()
+                        .requestMatchers("/courses").authenticated()
+                        .requestMatchers("/about").permitAll()
+                        .requestMatchers("/assets/**").permitAll())
+                .formLogin(Customizer.withDefaults())
                 .httpBasic(Customizer.withDefaults());
-    return http.build();
+        return http.build();
     }
 }
