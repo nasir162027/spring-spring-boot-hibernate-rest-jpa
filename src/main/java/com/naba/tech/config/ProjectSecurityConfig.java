@@ -11,7 +11,15 @@ public class ProjectSecurityConfig{
 
     @Bean
     SecurityFilterChain defaultSecurityFilterChain(HttpSecurity http) throws Exception {
-        http.authorizeHttpRequests(requests -> requests.anyRequest().permitAll())
+
+//        Configure PermitAll  using Spring Security
+//        http.authorizeHttpRequests(requests -> requests.anyRequest().permitAll())
+//                .formLogin( Customizer.withDefaults())
+//                .httpBasic(Customizer.withDefaults());
+//    return http.build();
+
+//        Configure denyAll  using Spring Security
+                http.authorizeHttpRequests(requests -> requests.anyRequest().denyAll())
                 .formLogin( Customizer.withDefaults())
                 .httpBasic(Customizer.withDefaults());
     return http.build();
