@@ -4,10 +4,10 @@ package com.naba.tech.model;
 import lombok.Data;
 
 @Data
-public class Holiday {
-    private final String day;
-    private final String reason;
-    private final Type type;
+public class Holiday extends BaseEntity{
+    private  String day;
+    private  String reason;
+    private  Type type;
 
     public enum Type {
         FESTIVAL, FEDERAL
