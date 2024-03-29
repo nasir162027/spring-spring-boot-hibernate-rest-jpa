@@ -39,13 +39,11 @@ public class ContactService {
         return contacts;
     }
 
-    public boolean updateMsgStatus(int contactId, String updatedBy){
+    public boolean updateMsgStatus(int contactId){
 
         Optional<Contact> contact = contactRepository.findById( contactId );
         contact.ifPresent(contact1 ->{
             contact1.setStatus(NabaSchoolConstants.CLOSE);
-            contact1.setUpdatedBy( updatedBy );
-            contact1.setUpdatedAt(LocalDateTime.now());
         } );
         boolean isUpdated = false;
         Contact updateContact= contactRepository.save(contact.get());
