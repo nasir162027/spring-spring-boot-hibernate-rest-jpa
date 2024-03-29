@@ -1,6 +1,7 @@
 package com.naba.tech.controller;
 
 
+import com.naba.tech.model.Contact;
 import com.naba.tech.model.Holiday;
 import com.naba.tech.repository.HolidaysRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
 
 @Controller
 public class HolidaysController {
@@ -31,7 +33,7 @@ public class HolidaysController {
     }else if(null !=display && display.equals("festival")){
         model.addAttribute("festival",true);
     }
-        List<Holiday> holidays =holidaysRepository.findAllHolidays();
+        List<Holiday> holidays = StreamSupport.stream(holidaysRepository.findAll().spliterator(), false ).collect( Collectors.toList() );
         Holiday.Type[] types = Holiday.Type.values();
         for (Holiday.Type type : types) {
             model.addAttribute(type.toString(),

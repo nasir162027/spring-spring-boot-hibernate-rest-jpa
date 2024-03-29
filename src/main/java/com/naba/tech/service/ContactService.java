@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @Slf4j
@@ -26,22 +27,29 @@ public class ContactService {
         contact.setStatus( NabaSchoolConstants.OPEN);
         contact.setCreatedBy(NabaSchoolConstants.ANONYMOUS);
         contact.setCreatedAt( LocalDateTime.now());
-        int result = contactRepository.saveContactMsg(contact);
-        if(result>0) {
+        Contact saveContact= contactRepository.save(contact);
+        if(null!=saveContact && saveContact.getContactId()>0) {
             isSaved = true;
         }
         return isSaved;
     }
 
-    public List<Contact> findMsgsWithOpenStatus(){
-        List<Contact> contactMsgs = contactRepository.findMsgsWithStatus(NabaSchoolConstants.OPEN);
-        return contactMsgs;
+    public List<Contact> findMsgWithOpenStatus(){
+        List<Contact> contacts = contactRepository.findByStatus(NabaSchoolConstants.OPEN);
+        return contacts;
     }
 
     public boolean updateMsgStatus(int contactId, String updatedBy){
+
+        Optional<Contact> contact = contactRepository.findById( contactId );
+        contact.ifPresent(contact1 ->{
+            contact1.setStatus(NabaSchoolConstants.CLOSE);
+            contact1.setUpdatedBy( updatedBy );
+            contact1.setUpdatedAt(LocalDateTime.now());
+        } );
         boolean isUpdated = false;
-        int result = contactRepository.updateMsgStatus(contactId,NabaSchoolConstants.CLOSE, updatedBy);
-        if(result>0) {
+        Contact updateContact= contactRepository.save(contact.get());
+        if(null!=updateContact &&  updateContact.getUpdatedBy()!=null) {
             isUpdated = true;
         }
         return isUpdated;
