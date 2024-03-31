@@ -1,4 +1,4 @@
-package com.naba.tech.rommappers;
+package com.naba.tech.rowmappers;
 
 import com.naba.tech.model.Contact;
 import org.springframework.jdbc.core.RowMapper;
