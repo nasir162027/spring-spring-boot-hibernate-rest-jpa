@@ -49,13 +49,9 @@ public class ContactService {
 
     public boolean updateMsgStatus(int contactId){
 
-        Optional<Contact> contact = contactRepository.findById( contactId );
-        contact.ifPresent(contact1 ->{
-            contact1.setStatus(NabaSchoolConstants.CLOSE);
-        } );
         boolean isUpdated = false;
-        Contact updateContact= contactRepository.save(contact.get());
-        if(null!=updateContact &&  updateContact.getUpdatedBy()!=null) {
+        int rows = contactRepository.updateMsgStatusNative(NabaSchoolConstants.CLOSE,contactId);
+        if(rows > 0) {
             isUpdated = true;
         }
         return isUpdated;
