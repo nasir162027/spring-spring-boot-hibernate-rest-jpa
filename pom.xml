@@ -72,6 +72,10 @@
             <artifactId>lombok</artifactId>
             <groupId>org.projectlombok</groupId>
         </dependency>
+		<dependency>
+			<groupId>com.fasterxml.jackson.dataformat</groupId>
+			<artifactId>jackson-dataformat-xml</artifactId>
+		</dependency>
     </dependencies>
 
 	<build>
