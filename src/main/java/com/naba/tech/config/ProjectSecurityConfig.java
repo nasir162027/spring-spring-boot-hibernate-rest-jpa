@@ -21,12 +21,14 @@ public class ProjectSecurityConfig{
     SecurityFilterChain defaultSecurityFilterChain(HttpSecurity http) throws Exception {
 
         http.csrf((csrf) -> csrf.ignoringRequestMatchers("/saveMsg").ignoringRequestMatchers("/public/**")
-                .ignoringRequestMatchers("/api/**"))
+                .ignoringRequestMatchers("/api/**")
+                .ignoringRequestMatchers("/nabaschool/actuator/**"))
                 .authorizeHttpRequests((requests) -> requests.requestMatchers("/dashboard").authenticated()
                         .requestMatchers("/displayMessages/**").hasRole("ADMIN")
                         .requestMatchers("/closeMsg/**").hasRole("ADMIN")
                         .requestMatchers("/admin/**").hasRole("ADMIN")
                         .requestMatchers("/displayProfile").authenticated()
+                        .requestMatchers("/nabaschool/actuator/**").hasRole("ADMIN")
                         .requestMatchers("/updateProfile").authenticated()
                         .requestMatchers("/api/**").authenticated()
                         .requestMatchers("/student/**").hasRole("STUDENT")
